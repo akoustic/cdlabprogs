@@ -12,7 +12,7 @@ int count=0;
 %left '!'
 
 %%
-S : ST {printf("\n Number of for loops %d\n",count); exit(0);}
+S : ST {printf("Number of for loops %d\n",count); exit(0);}
 ST : FOR'(' E ';' COMPARE ';' E ')' BOD {count++;} ;
 
 BOD : '{' BODY '}'
@@ -43,10 +43,27 @@ COMPARE : E '<' E
    | E NE E
    ;   
 %%
+#include <stdio.h>
+// stuff from lex that yacc needs to know about:
+extern int yylex();
+extern int yyparse();
+extern FILE *yyin;
 
 int main() {
-	printf("Enter the expression: \n");
-	yyparse();
+	// open a file handle to a particular file:
+	FILE *myfile = fopen("forloopfile.c", "r");
+	// make sure it is valid:
+	if (!myfile) {
+		printf("\nCannot open file\n");
+        exit(-1);
+	}
+	// set lex to read from it instead of defaulting to STDIN:
+	yyin = myfile;
+	
+	// parse through the input until there is no more:
+	do {
+		yyparse();
+	} while (!feof(yyin));
 }
 
 /* For printing error messages */

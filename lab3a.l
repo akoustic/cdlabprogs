@@ -15,5 +15,6 @@ for {return FOR;}
 ">=" {return GE;}
 "==" {return EQ;}
 "!=" {return NE;}
+[\t \n] ;
 . {return yytext[0];}
 %%
