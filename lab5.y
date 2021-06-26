@@ -51,33 +51,13 @@ int tempchar = 97;
 char icode[10][30], str[20],  opr[10];
 int ptr = 0;
 
-main()
- {
- printf("Enter the expression : ");
- yyparse();
-
-
-
-
+main(){
+ 	printf("Enter the expression : ");
+ 	yyparse();
 	int i = 0;
-
-	//printf("\n\n\n\n");
-
-	
-
-	
 	strcpy(icode[ptr++], "exit");
-	//icode[ptr++] = "exit";
-
-	/*
-	do
-	{
-		strcpy(str, icode[i]);
-		printf("%s \n", str);
- 	}while(strcmp(icode[++i], "exit") !=  0);
-	*/
-	printf("\n target code generation");
-	printf("\n*****");
+	printf("\n Target code generation");
+	
 	i = 0;
 	do
 	{
