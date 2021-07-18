@@ -1,5 +1,5 @@
 /* code to recognize spaces, letters, words in a sentence WARNING: does not work on trailing spaces */ 
-/* to run - lex prog.l; lex.yy.c -ll; ./a.out */
+/* to run - lex prog.l; cc lex.yy.c -ll; ./a.out */
 %{
 #include<stdio.h>
 int words = 0;

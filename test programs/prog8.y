@@ -10,8 +10,8 @@
 %left UMINUS
 %%
 
-S : ID{push();} '='{push();} E{codegen_assign();}
-   ;
+S : E
+;
 E : E '+'{push();} T{codegen();}
    | E '-'{push();} T{codegen();}
    | T
@@ -22,7 +22,6 @@ T : T '*'{push();} F{codegen();}
    ;
 F : '(' E ')'
    | '-'{push();} F{codegen_umin();} %prec UMINUS
-   | ID{push();}
    | NUM{push();}
    ;
 %%
@@ -71,11 +70,6 @@ codegen_umin()
  i_[0]++;
  }
 
-codegen_assign()
- {
- printf("= %s     %s\n",st[top],st[top-2]);
- top-=2;
- }
  int yyerror(char* s) {
 	printf("\nExpression is invalid\n");
 }
