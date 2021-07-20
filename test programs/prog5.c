@@ -12,39 +12,48 @@ char string[16], ac[20], stack[15], act[10];
 
 void check()
 {
+    int flag=0;
+    for(;;){
 
-    strcpy(ac,"REDUCE TO S -> ");  
-          
-    for(z = 0; z < stringlen - 2; z++)
-    {
-        if(stack[z] == 'a' && stack[z + 1] == 'S' && stack[z + 2] == 'b' && stack[z + 3] == 'b') 
+        strcpy(ac,"REDUCE TO S -> ");  
+            
+        for(z = 0; z < stringlen; z++)
         {
-            printf("\t%saSbb", ac);
-            stack[z] = 'S';
-            stack[z + 1] = '\0';
-            stack[z + 2] = '\0';
-            stack[z + 3] = '\0';
-            printf("\n$%s\t%s$\t", stack, string);
-            stackptr = stackptr - 3;
+            if(stack[z] == 'a' && stack[z + 1] == 'S' && stack[z + 2] == 'b' && stack[z + 3] == 'b') 
+            {
+                printf("\t%saSbb", ac);
+                stack[z] = 'S';
+                stack[z + 1] = '\0';
+                stack[z + 2] = '\0';
+                stack[z + 3] = '\0';
+                printf("\n$%s\t%s$\t", stack, string);
+                stackptr = stackptr - 3;
+                flag=1;
+            }
+            
         }
-          
-    }
-          
-    for(z = 0; z < stringlen - 2; z++)
-    {
-        if(stack[z] == 'a' && stack[z + 1] == 'b' && stack[z + 2] == 'b') 
+            
+        for(z = 0; z < stringlen; z++)
         {
-            printf("\t%sabb", ac);
-            stack[z] = 'S';
-            stack[z + 1] = '\0';
-            stack[z + 2] = '\0';
-            printf("\n$%s\t%s$\t", stack, string);
-            stackptr = stackptr - 2;
+            if(stack[z] == 'a' && stack[z + 1] == 'b' && stack[z + 2] == 'b') 
+            {
+                printf("\t%sabb", ac);
+                stack[z] = 'S';
+                stack[z + 1] = '\0';
+                stack[z + 2] = '\0';
+                printf("\n$%s\t%s$\t", stack, string);
+                stackptr = stackptr - 2;
+                flag=1;
+            }
+            
         }
-          
+        if(flag==0){
+            break;
+        }
+        else{
+            flag=0;
+        }
     }
-
-
     return ;
 }
   
@@ -54,7 +63,7 @@ int main()
     //printf("GRAMMAR is -\nE->E+E \nE->E/E \nE->E*E \nE->a|b\n");
     printf("GRAMMAR is -\nS->aSbb|abb");    
       
-    strcpy(string,"aabbb"); 
+    strcpy(string,"aabbbb"); 
     stringlen=strlen(string); 
     strcpy(act,"SHIFT"); 
     printf("\nStack \t Input \t\tAction"); 
